@@ -1,0 +1,86 @@
+@startuml
+class Property {
+  # id : int
+  # address : string
+  # rent : double
+  # ownerId : int
+  # rented : bool
+  + Property()
+  + Property(id, address, rent, ownerId, rented)
+  + ~Property()
+  + getId() : int
+  + setAddress(address)
+  + setRent(rent)
+  + setRented(rented)
+  + getType() : string
+  + display()
+  + toLine() : string
+}
+class ResidentialProperty {
+  - bedrooms : int
+  + setBedrooms(bedrooms)
+  + getType() : string
+  + display()
+  + toLine() : string
+}
+class Tenant {
+  - id : int
+  - name : string
+  - phone : string
+  + setName(name)
+  + setPhone(phone)
+  + display()
+  + toLine() : string
+}
+class Owner {
+  - id : int
+  - name : string
+  - phone : string
+  + setName(name)
+  + setPhone(phone)
+  + display()
+  + toLine() : string
+}
+class RentalAgreement {
+  - id : int
+  - propertyId : int
+  - tenantId : int
+  - ownerId : int
+  - months : int
+  - monthlyRent : double
+  + getTotal() : double
+  + display()
+  + toLine() : string
+}
+class FileManager {
+  + writeLines(fileName, lines, count) : bool
+  + readLines(fileName, lines) : int
+  + split(line, parts, maxParts) : int
+}
+class PropertySystem {
+  - properties : Property**
+  - tenants : Tenant*
+  - owners : Owner*
+  - agreements : RentalAgreement*
+  - files : FileManager
+  + run()
+  + addRecord()
+  + displayRecords()
+  + searchRecord()
+  + updateRecord()
+  + deleteRecord()
+  + createAgreement()
+  + showReport()
+  + saveLoadMenu()
+}
+Property <|-- ResidentialProperty
+PropertySystem "1" o-- "*" Property
+PropertySystem "1" o-- "*" Tenant
+PropertySystem "1" o-- "*" Owner
+PropertySystem "1" o-- "*" RentalAgreement
+PropertySystem --> FileManager : uses
+RentalAgreement ..> Property : propertyId
+RentalAgreement ..> Tenant : tenantId
+RentalAgreement ..> Owner : ownerId
+Owner "1" -- "*" Property : owns
+@enduml

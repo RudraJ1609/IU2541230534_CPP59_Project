@@ -1,0 +1,21 @@
+@startuml
+left to right direction
+actor Manager
+actor Tenant
+rectangle "Rental Property Management" {
+  usecase "Manage Properties\n(add/update/delete)" as UC1
+  usecase "Manage Tenants and Owners" as UC2
+  usecase "Search Records" as UC3
+  usecase "Create Rental Agreement" as UC4
+  usecase "View Summary Report" as UC5
+  usecase "Save / Load Data" as UC6
+}
+Manager --> UC1
+Manager --> UC2
+Manager --> UC3
+Manager --> UC4
+Manager --> UC5
+Manager --> UC6
+Tenant --> UC3
+Tenant --> UC4
+@enduml

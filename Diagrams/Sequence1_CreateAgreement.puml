@@ -1,0 +1,21 @@
+@startuml
+actor Manager
+participant "main" as M
+participant PropertySystem as S
+participant Property as P
+participant Tenant as T
+participant RentalAgreement as A
+Manager -> M : choose 6 (Create Rental Agreement)
+M -> S : createAgreement()
+S -> Manager : ask Property ID, Tenant ID, months
+Manager -> S : enter values
+S -> P : isRented()
+P --> S : false
+S -> T : getId()
+T --> S : tenant found
+S -> P : getRent(), getOwnerId()
+S -> A : new RentalAgreement(...)
+A --> S : agreement (validated)
+S -> P : setRented(true)
+S --> Manager : "Agreement created. Total rent: ..."
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+actor Manager
+participant "main" as M
+participant PropertySystem as S
+participant Tenant as T
+participant FileManager as F
+database "tenants.txt" as D
+Manager -> M : choose 1 (Add Record), type Tenant
+M -> S : addRecord()
+S -> Manager : ask name and phone
+Manager -> S : enter values
+S -> T : new Tenant(id, name, phone)
+T --> S : valid object (or exception)
+S -> S : store in tenants array (grow if full)
+Manager -> M : choose 8 (Save)
+M -> S : saveLoadMenu() -> saveData()
+S -> T : toLine()
+T --> S : "1|Anil Mehta|9123450000"
+S -> F : writeLines("Data/tenants.txt", lines, count)
+F -> D : write lines
+F --> S : true
+S --> Manager : "Data saved"
+@enduml
